@@ -19,7 +19,8 @@
     "test": "uvu -r tsm test '\\.test\\.ts$'",
     "test-cov": "c8 --include=src yarn test",
     "format": "prettier --write .",
-    "ci": "tsc --noEmit && yarn test-cov && yarn build"
+    "ci": "tsc --noEmit && yarn test-cov && yarn build",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@redocly/openapi-core": "1.34.3",
@@ -45,9 +46,6 @@
     "prettier": "^3.0.0",
     "typescript": "^5.0.0"
   },
-  "files": [
-    "dist"
-  ],
   "main": "./dist/main.js",
   "types": "./dist/main.d.cts",
   "exports": {

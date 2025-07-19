@@ -11,6 +11,7 @@ export type Config = {
   output: string | null
   name: string
   namespacing: boolean
+  includeTags: string[] | null
   parseDates: boolean
   inlineEnums: boolean
   resolveName?: (ctx: Context, op: OpConfig, proposal: OpName) => OpName | undefined
@@ -32,6 +33,7 @@ export const initCtx = (config?: Partial<Context>): Context => {
     paths: {},
     schemas: {},
     namespacing: true,
+    includeTags: null,
     parseDates: false,
     inlineEnums: false,
     headers: {},
@@ -67,6 +69,11 @@ export const getCliConfig = () => {
         description: "disable namespacing of generated methods based on the first tag",
         default: false,
       },
+      includeTag: {
+        type: [String],
+        description: "Only include operations with the given tags.",
+        default: null,
+      },
       parseDates: {
         type: Boolean,
         description: "Parse dates as Date objects",
@@ -92,6 +99,7 @@ export const getCliConfig = () => {
     output: argv._.output ?? null,
     name: argv.flags.name,
     namespacing: !argv.flags.noNamespacing,
+    includeTags: argv.flags.includeTag,
     parseDates: argv.flags.parseDates,
     inlineEnums: argv.flags.inlineEnums,
     headers: parseHeaders(argv.flags.header),

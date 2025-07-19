@@ -8,7 +8,7 @@ import { filterSchema } from "./schema"
 
 export const apigen = async (config: Partial<Config> & Pick<Config, "source" | "output">) => {
   const doc = await loadSchema({ url: config.source, headers: config.headers })
-  const { paths, schemas } = filterSchema(doc)
+  const { paths, schemas } = filterSchema(doc, config)
   const ctx = initCtx({ ...config, paths, schemas })
   const { clientMembers, types } = await generateAst(ctx)
 
